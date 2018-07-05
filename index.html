@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <title>Генератор алкогольных марок</title>
+   <meta name="description" content="Генератор алкогольных марок, но не валидных для отправки">
+   <meta name="viewport" content="width=device-width,initial-scale=1">
+   <style>
+      div {
+         text-align: center;
+         padding: 20px;
+      }
+   </style>
+</head>
+<body>
+<div>
+   <label for="code">Код ЕГАИС</label>
+   <input type="text" id="code" value="" autocomplete="off"/>
+   <input type="button" id="gen" value="generate"/>
+</div>
+<div id="barcode"></div>
+<div id="image"></div>
+<script type="text/javascript">
+
+   /**
+    *
+    * Generate bar code image by USAIS code
+    *
+    * @author       Maqentaer
+    * @license    https://www.gnu.org/licenses/gpl-3.0
+    * @version    1.0.0
+    *
+    */
+
+   function getImageUrlByBarCode(barcode) {
+      return 'https://barcode.tec-it.com/barcode.ashx?data=' + barcode
+         + '&code=PDF417&multiplebarcodes=true&translate-esc=false&unit=Fit&dpi=96'
+         + '&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0';
+   }
+
+   function pad(str, num) {
+      if (str.padStart) {
+         return str.padStart(num, '0');
+      } else {
+         return (new Array(num + 1).join('0') + str).slice(-num);
+      }
+   }
+
+   function getBarCodeByUsaisCode(code) {
+      var prefix = '22N';
+      var countOfCode = 19;
+      var countTotal = 68;
+      return prefix
+         + pad(base10ToBase36(code), countOfCode)
+         + randomBase36(countTotal - countOfCode - prefix.length);
+   }
+
+   function randomBase36(len) {
+      var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+      var charsLen = chars.length;
+      var res = new Array(len);
+      for (var i = 0; i < len; i++) {
+         res[i] = chars[0 | Math.random() * charsLen];
+      }
+      return res.join('');
+   }
+
+   function base10ToBase36(num) {
+      var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      var base = chars.length;
+      var str = '', r;
+      while (num) {
+         r = num % base;
+         num -= r;
+         num /= base;
+         str = chars.charAt(r) + str;
+      }
+      return str;
+   }
+
+   $(document).ready(function() {
+      $('#gen').click(function() {
+         var code = $('#code').val();
+
+         var barcode = getBarCodeByUsaisCode(code);
+         $('#barcode').text(barcode);
+
+         var src = getImageUrlByBarCode(barcode);
+         $('#image').empty().append($('<img/>').attr('src', src));
+      });
+   });
+</script>
+<div style='padding:10px; text-align:center; font-size:15px; font-family:Arial,Helvetica;'>
+   <a href='https://www.tec-it.com' title='Barcode Software by TEC-IT'>
+      <img src='https://www.tec-it.com/pics/banner/web/TEC-IT_Banner_120x42.gif' alt='Barcode Software by TEC-IT'
+           border='0'/>
+   </a>
+   <br/>
+   <a href='https://www.tec-it.com' title='Barcode Software by TEC-IT'>Barcode Software</a>
+</div>
+</body>
+</html>
