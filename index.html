@@ -1,27 +1,41 @@
 <!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on https://github.com/jonrohan -->
 <html>
 <head>
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+   <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
+   <link rel="stylesheet" href="stylesheets/github-dark.css">
    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <script type="text/javascript" src="javascripts/script.js"></script>
+
    <title>Генератор алкогольных марок</title>
    <meta name="description" content="Генератор алкогольных марок, но не валидных для отправки">
    <meta name="viewport" content="width=device-width,initial-scale=1">
    <style>
-      div {
+      .content {
          text-align: center;
          padding: 20px;
       }
    </style>
 </head>
 <body>
-<div>
+
+<div class="wrapper">
+   <div id="container">
+      <p class="tagline" style="padding: 5px 20px 0;">GW2 Items link count change</p>
+      <div id="main" role="main">
+         <article class="markdown-body">
+
+<div class="content">
    <label for="code">Код ЕГАИС</label>
    <input type="text" id="code" value="" autocomplete="off"/>
    <input type="button" id="gen" value="generate"/>
 </div>
-<div id="barcode"></div>
-<div id="image"></div>
+<div class="content" id="barcode"></div>
+<div class="content" id="image"></div>
 <script type="text/javascript">
 
    /**
@@ -92,7 +106,9 @@
       });
    });
 </script>
-<div style='padding:10px; text-align:center; font-size:15px; font-family:Arial,Helvetica;'>
+<div class="content" style='padding:10px; text-align:center; font-size:15px; font-family:Arial,Helvetica;'>
+   Image by:
+   <br/>
    <a href='https://www.tec-it.com' title='Barcode Software by TEC-IT'>
       <img src='https://www.tec-it.com/pics/banner/web/TEC-IT_Banner_120x42.gif' alt='Barcode Software by TEC-IT'
            border='0'/>
@@ -100,5 +116,16 @@
    <br/>
    <a href='https://www.tec-it.com' title='Barcode Software by TEC-IT'>Barcode Software</a>
 </div>
+
+         </article>
+      </div>
+   </div>
+   <footer>
+      <div class="creds">
+         <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+   </footer>
+</div>
+
 </body>
 </html>
